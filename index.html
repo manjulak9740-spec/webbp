@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday Manaswi</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,600&family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: radial-gradient(circle at center, #16102b 0%, #07040d 100%);
+        color: #f3f4f6;
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      :root {
+        --gold: #f3cd82;
+        --gold-glow: rgba(243, 205, 130, 0.5);
+      }
+
+      /* --- STREAMING_CHUNK: Setting up core layout and visuals... --- */
+      .stars-container, #fireworks-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      .stars-container { z-index: 1; }
+      #fireworks-canvas { z-index: 6; }
+
+      #intro-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #07040d;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        transition: opacity 1.2s ease;
+      }
+
+      .intro-top-text {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: var(--gold);
+        text-shadow: 0 0 20px var(--gold-glow);
+        margin-bottom: 50px;
+        text-align: center;
+        opacity: 0;
+        animation: fadeInSimple 2s ease 0.5s forwards;
+      }
+
+      .intro-btn {
+        margin-top: 50px;
+        background: rgba(243, 205, 130, 0.1);
+        border: 1.5px solid var(--gold);
+        padding: 0.9rem 2.8rem;
+        border-radius: 50px;
+        color: #ffffff;
+        font-family: "Playfair Display", serif;
+        cursor: pointer;
+        opacity: 0;
+        animation: fadeInUp 1.2s ease 2s forwards;
+        transition: all 0.4s ease;
+      }
+
+      .intro-btn:hover {
+        background: var(--gold);
+        color: #07040d;
+      }
+
+      @keyframes fadeInSimple { to { opacity: 1; } }
+      @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+      /* --- STREAMING_CHUNK: Slide System... --- */
+      .wrapper {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        z-index: 5;
+        opacity: 0;
+        transition: opacity 1.2s ease;
+      }
+
+      .slide {
+        position: absolute;
+        text-align: center;
+        max-width: 620px;
+        width: 100%;
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.93) translateY(10px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .slide.active {
+        position: relative;
+        opacity: 1;
+        pointer-events: auto;
+        transform: scale(1) translateY(0);
+      }
+
+      .title {
+        font-family: "Playfair Display", serif;
+        font-size: 2.6rem;
+        font-style: italic;
+        color: var(--gold);
+        margin-bottom: 1.5rem;
+      }
+
+      .message-box {
+        background: rgba(22, 14, 38, 0.85);
+        border: 1px solid rgba(243, 205, 130, 0.25);
+        border-radius: 24px;
+        padding: 1.5rem 2rem;
+        backdrop-filter: blur(12px);
+        margin-bottom: 1rem;
+        width: 100%;
+      }
+
+      .next-btn {
+        background: rgba(7, 4, 13, 0.7);
+        border: 1px solid var(--gold);
+        padding: 0.85rem 2.5rem;
+        border-radius: 50px;
+        color: #ffffff;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .next-btn:hover { background: var(--gold); color: #07040d; }
+    </style>
+  </head>
+  <body>
+    <div id="intro-overlay">
+      <div class="intro-top-text">To the most beautiful woman in the entire universe</div>
+      <button class="intro-btn" onclick="startExperience()">Begin the journey, Daisydew ✨</button>
+    </div>
+
+    <div class="stars-container"></div>
+    <canvas id="fireworks-canvas"></canvas>
+
+    <main class="wrapper" id="main-wrapper">
+      <section class="slide active" id="slide-1">
+        <h1 class="title">Pure Perfection</h1>
+        <div class="message-box">
+          <p class="message">Exactly 7303 days ago, Shiva decided it's time for his best creation — you.</p>
+        </div>
+        <button class="next-btn" onclick="goToSlide(2)">Bloom to the Next Memory 🍧</button>
+      </section>
+
+      <section class="slide" id="slide-2">
+        <h1 class="title">Your Day</h1>
+        <div class="message-box">
+          <p class="message">Today is all about you. I hope this year brings you lasting happiness.</p>
+        </div>
+        <button class="next-btn" onclick="goToSlide(3)">Bloom to the Next Memory 🍧</button>
+      </section>
+
+      <section class="slide" id="slide-3">
+        <h1 class="title">A True Blessing</h1>
+        <div class="message-box">
+          <p class="message">You have a rare spark. Thank you for bringing magic into the world.</p>
+        </div>
+        <button class="next-btn" onclick="goToSlide(1)">Back to Start 🍧</button>
+      </section>
+    </main>
+
+    <script>
+      /* --- STREAMING_CHUNK: Initializing interactivity... --- */
+      function startExperience() {
+        document.getElementById("intro-overlay").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("intro-overlay").style.display = "none";
+          document.getElementById("main-wrapper").style.opacity = "1";
+        }, 1200);
+      }
+
+      function goToSlide(n) {
+        document.querySelectorAll(".slide").forEach(s => s.classList.remove("active"));
+        document.getElementById(`slide-${n}`).classList.add("active");
+        
+        if (n === 3) startGrandFireworks();
+        else stopGrandFireworks();
+      }
+
+      /* --- STREAMING_CHUNK: Fireworks & Background... --- */
+      const canvas = document.getElementById("fireworks-canvas");
+      const ctx = canvas.getContext("2d");
+      let particles = [];
+      let fireworkTimer = null;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      class Particle {
+        constructor(x, y) {
+          this.x = x; this.y = y;
+          this.vx = (Math.random() - 0.5) * 8;
+          this.vy = (Math.random() - 0.5) * 8;
+          this.alpha = 1;
+        }
+        draw() {
+          ctx.globalAlpha = this.alpha;
+          ctx.fillStyle = "#f3cd82";
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 2, 0, Math.PI*2);
+          ctx.fill();
+        }
+        update() {
+          this.x += this.vx; this.y += this.vy;
+          this.alpha -= 0.02;
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        particles = particles.filter(p => p.alpha > 0);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      function startGrandFireworks() {
+        if(fireworkTimer) return;
+        fireworkTimer = setInterval(() => {
+          for(let i=0; i<20; i++) particles.push(new Particle(Math.random()*canvas.width, Math.random()*canvas.height));
+        }, 500);
+      }
+
+      function stopGrandFireworks() {
+        clearInterval(fireworkTimer);
+        fireworkTimer = null;
+      }
+    </script>
+  </body>
+</html>
